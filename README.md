@@ -3,7 +3,7 @@
 
 This project is a Flask-based application that generates presentations from documents with the help of AI. It's a simple setup, and it does all the heavy lifting for you. You just provide the document, and the app creates a presentation based on the content. If you're looking to automate your slideshows, this could be a fun project for you to try out too!
 
-[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/0.jpg)](https://www.youtube.com/watch?v=YOUTUBE_VIDEO_ID_HERE)
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/2tv6cTMgPfg/0.jpg)](https://www.youtube.com/watch?v=2tv6cTMgPfg)
 ## Features
 
 - Generate presentations from uploaded documents.
