@@ -1,11 +1,8 @@
-
 # AI PDF to PPT Generator with Slide Edit & PPT Download
 
 This project is a Flask-based application that generates presentations from documents with the help of AI. It's a simple setup, and it does all the heavy lifting for you. You just provide the document, and the app creates a presentation based on the content. If you're looking to automate your slideshows, this could be a fun project for you to try out too!
 
 ![AI PDF to PPT Generator](https://miro.medium.com/v2/resize:fit:2000/format:webp/1*jwt_PvUh_NBvmRCn0U_dMg.png)
-
-[![Watch Video](https://img.youtube.com/vi/2tv6cTMgPfg/0.jpg)](https://www.youtube.com/watch?v=2tv6cTMgPfg)
 
 Want to try? Demo link is in the article  
 Article: [Transform PDFs into Professional Presentations with AI](https://medium.com/@lesteroliver911/transform-pdfs-into-professional-presentations-with-ai-key-insights-from-building-this-app-d8ff1535ecb0)
