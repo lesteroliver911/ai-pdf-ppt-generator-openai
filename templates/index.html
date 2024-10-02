@@ -1,1 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF to PowerPoint Converter</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-r from-blue-100 to-purple-100 min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8" x-data="{ loading: false }">
+    <div class="max-w-3xl w-full space-y-8 bg-white p-10 rounded-xl shadow-lg fade-in">
+        <div>
+            <h1 class="text-4xl font-extrabold text-center text-gray-900 mb-2">PDF to PowerPoint Converter</h1>
+            <p class="text-center text-lg text-gray-600">Transform your PDF into a professional presentation</p>
+        </div>
+        <form hx-post="/" hx-encoding="multipart/form-data" hx-target="#result" class="space-y-6" aria-label="Presentation generation form" @submit="loading = true">
+            <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                <div class="col-span-2">
+                    <label for="pdf_file" class="block text-sm font-medium text-gray-700 mb-1">Upload PDF File</label>
+                    <input type="file" name="pdf_file" id="pdf_file" accept="application/pdf" required class="w-full text-sm text-gray-500
+                        file:mr-4 file:py-2 file:px-4
+                        file:rounded-full file:border-0
+                        file:text-sm file:font-semibold
+                        file:bg-blue-50 file:text-blue-700
+                        hover:file:bg-blue-100
+                        transition duration-300 ease-in-out">
+                </div>
+                <div>
+                    <label for="topic" class="block text-sm font-medium text-gray-700 mb-1">Presentation Topic</label>
+                    <input type="text" name="topic" id="topic" required class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 transition duration-300 ease-in-out">
+                </div>
+                <div>
+                    <label for="presenter" class="block text-sm font-medium text-gray-700 mb-1">Presenter's Name</label>
+                    <input type="text" name="presenter" id="presenter" required class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 transition duration-300 ease-in-out">
+                </div>
+                <div>
+                    <label for="template" class="block text-sm font-medium text-gray-700 mb-1">Presentation Template</label>
+                    <select name="template" id="template" class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 transition duration-300 ease-in-out">
+                        <option value="bright_modern">Bright Modern</option>
+                        <option value="dark_modern">Dark Modern</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="style" class="block text-sm font-medium text-gray-700 mb-1">Presentation Style</label>
+                    <select name="style" id="style" class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 transition duration-300 ease-in-out">
+                        <option value="Professional">Professional</option>
+                        <option value="Casual">Casual</option>
+                        <option value="Academic">Academic</option>
+                        <option value="Creative">Creative</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="audience" class="block text-sm font-medium text-gray-700 mb-1">Target Audience</label>
+                    <select name="audience" id="audience" class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 transition duration-300 ease-in-out">
+                        <option value="General">General</option>
+                        <option value="Executives">Executives</option>
+                        <option value="Technical">Technical</option>
+                        <option value="Students">Students</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="num_slides" class="block text-sm font-medium text-gray-700 mb-1">Number of Slides</label>
+                    <input type="number" name="num_slides" id="num_slides" min="1" max="20" value="10" class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 transition duration-300 ease-in-out">
+                </div>
+            </div>
+            <div>
+                <label for="user_instructions" class="block text-sm font-medium text-gray-700 mb-1">Specific Instructions</label>
+                <textarea name="user_instructions" id="user_instructions" class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 transition duration-300 ease-in-out" rows="3"></textarea>
+            </div>
+            <div class="flex flex-wrap items-center space-x-4">
+                <div class="flex items-center">
+                    <input type="checkbox" name="insert_images" id="insert_images" checked class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                    <label for="insert_images" class="ml-2 block text-sm text-gray-900">Insert Images</label>
+                </div>
+                <div class="flex items-center">
+                    <input type="checkbox" name="include_executive_summary" id="include_executive_summary" checked class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                    <label for="include_executive_summary" class="ml-2 block text-sm text-gray-900">Executive Summary</label>
+                </div>
+            </div>
+            <button type="submit" class="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-300 ease-in-out" :disabled="loading">
+                <span x-show="!loading">Generate Presentation Content</span>
+                <svg x-show="loading" class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                <span x-show="loading">Generating...</span>
+            </button>
+        </form>
+        <div id="result" class="mt-6 text-center" aria-live="polite"></div>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <ul class="mt-6 space-y-2" aria-label="Notifications">
+            {% for category, message in messages %}
+              <li class="px-4 py-2 rounded {% if category == 'error' %}bg-red-100 text-red-700{% else %}bg-green-100 text-green-700{% endif %} fade-in">{{ message }}</li>
+            {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+    </div>
 
+    <script>
+        htmx.on("htmx:beforeRequest", function(evt) {
+            evt.detail.target.innerHTML = '<p class="text-indigo-600">Generating presentation content...</p>';
+        });
+
+        htmx.on("htmx:afterRequest", function(evt) {
+            if (evt.detail.successful) {
+                var response = JSON.parse(evt.detail.xhr.responseText);
+                if (response.id) {
+                    evt.detail.target.innerHTML = '<p class="text-green-600">Presentation content generated successfully. Redirecting to edit page...</p>';
+                    setTimeout(function() {
+                        window.location.href = '/edit/' + response.id;
+                    }, 2000);
+                } else if (response.error) {
+                    evt.detail.target.innerHTML = '<p class="text-red-600">Error: ' + response.error + '</p>';
+                }
+            } else {
+                evt.detail.target.innerHTML = '<p class="text-red-600">An error occurred. Please try again.</p>';
+            }
+            document.querySelector('form').dispatchEvent(new Event('reset'));
+        });
+    </script>
+</body>
+</html>
