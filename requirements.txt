@@ -1,5 +1,6 @@
 python-pptx
 langchain-openai
+langchain_community
 Pillow
 pexels-api
 flask

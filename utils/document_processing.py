@@ -29,7 +29,9 @@ def load_and_analyze_document(pdf_file) -> tuple[list, dict]:
             use_vendor_multimodal_model=True,
             vendor_multimodal_model_name="openai-gpt4o",
             invalidate_cache=True,
-            result_type="markdown"
+            result_type="markdown", 
+            request_timeout=300
+            
         )
         
         # Use SimpleDirectoryReader with LlamaParse

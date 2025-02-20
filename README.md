@@ -29,6 +29,7 @@ Also, make sure to set up your environment variables. You can add your OpenAI an
 OPENAI_API_KEY=your-openai-api-key
 PEXELS_API_KEY=your-pexels-api-key
 FLASK_SECRET_KEY=your-flask-secret-key
+LLAMA_PARSE_API_KEY=your-llama-parse-api-key
 ```
 
 ## How to Run
